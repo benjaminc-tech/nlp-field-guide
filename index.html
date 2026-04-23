@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NLP Strategy Elicitation — Field Guide</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    background: #f5f5f0;
+    color: #1a1a1a;
+    line-height: 1.6;
+    min-height: 100vh;
+  }
+
+  .page {
+    max-width: 680px;
+    margin: 0 auto;
+    padding: 2rem 1.5rem 4rem;
+  }
+
+  header {
+    margin-bottom: 2.5rem;
+  }
+
+  .eyebrow {
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: #888;
+    margin-bottom: 0.5rem;
+  }
+
+  h1 {
+    font-size: 2.2rem;
+    font-weight: 800;
+    line-height: 1.15;
+    margin-bottom: 0.75rem;
+    color: #111;
+  }
+
+  .subtitle {
+    font-size: 1rem;
+    color: #555;
+    max-width: 560px;
+  }
+
+  .callout {
+    background: #fff;
+    border-left: 4px solid #333;
+    border-radius: 6px;
+    padding: 1.1rem 1.3rem;
+    margin: 1.5rem 0 2.5rem;
+    font-size: 0.92rem;
+    color: #333;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+  }
+
+  .callout strong { color: #111; }
+
+  .progress-bar {
+    background: #e0e0d8;
+    border-radius: 100px;
+    height: 8px;
+    margin-bottom: 2.5rem;
+    overflow: hidden;
+    position: sticky;
+    top: 1rem;
+    z-index: 10;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+  }
+
+  .progress-fill {
+    background: linear-gradient(90deg, #2d6a4f, #40916c);
+    height: 100%;
+    border-radius: 100px;
+    width: 0%;
+    transition: width 0.4s ease;
+  }
+
+  .section {
+    margin-bottom: 2rem;
+  }
+
+  .section-header {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    margin-bottom: 1rem;
+    border-bottom: 2px solid #ddd;
+    padding-bottom: 0.5rem;
+  }
+
+  .section-header-left {
+    display: flex;
+    align-items: center;
+    gap: 0.65rem;
+  }
+
+  .step-number {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: #333;
+    color: #fff;
+    font-weight: 800;
+    font-size: 0.9rem;
+    flex-shrink: 0;
+  }
+
+  .section-header h2 {
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: #111;
+  }
+
+  .section-hint {
+    font-size: 0.8rem;
+    font-style: italic;
+    color: #999;
+    flex-shrink: 0;
+  }
+
+  .checklist {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .checklist li {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    background: #fff;
+    border-radius: 10px;
+    padding: 0.85rem 1rem;
+    cursor: pointer;
+    transition: background 0.15s, box-shadow 0.15s, opacity 0.3s;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+    user-select: none;
+    -webkit-user-select: none;
+  }
+
+  .checklist li:hover {
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  }
+
+  .checklist li.checked {
+    opacity: 0.55;
+    background: #f9f9f5;
+  }
+
+  .checklist li.checked .check-label {
+    text-decoration: line-through;
+    text-decoration-color: #aaa;
+  }
+
+  .checkbox {
+    width: 22px;
+    height: 22px;
+    border: 2px solid #ccc;
+    border-radius: 6px;
+    flex-shrink: 0;
+    margin-top: 1px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s;
+    background: #fff;
+  }
+
+  .checklist li.checked .checkbox {
+    background: #2d6a4f;
+    border-color: #2d6a4f;
+  }
+
+  .checkbox svg {
+    width: 14px;
+    height: 14px;
+    opacity: 0;
+    transition: opacity 0.2s;
+  }
+
+  .checklist li.checked .checkbox svg {
+    opacity: 1;
+  }
+
+  .check-label {
+    font-size: 0.95rem;
+    color: #222;
+    flex: 1;
+    transition: color 0.2s;
+  }
+
+  .check-label em {
+    font-style: italic;
+    color: #555;
+  }
+
+  .check-label .quote {
+    font-weight: 600;
+    color: #111;
+  }
+
+  .vak-table {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 0;
+    margin: 0.25rem 0 0.5rem;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+  }
+
+  .vak-cell {
+    background: #fff;
+    padding: 0.85rem 1rem;
+    border-right: 1px solid #eee;
+  }
+
+  .vak-cell:last-child { border-right: none; }
+
+  .vak-cell h4 {
+    font-size: 0.85rem;
+    font-weight: 700;
+    margin-bottom: 0.35rem;
+    color: #111;
+  }
+
+  .vak-cell p {
+    font-size: 0.82rem;
+    color: #555;
+    line-height: 1.5;
+  }
+
+  .reset-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    margin-top: 1.5rem;
+    padding: 0.6rem 1.2rem;
+    background: none;
+    border: 1.5px solid #ccc;
+    border-radius: 8px;
+    color: #888;
+    font-size: 0.82rem;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+
+  .reset-btn:hover {
+    border-color: #c0392b;
+    color: #c0392b;
+  }
+
+  footer {
+    text-align: center;
+    margin-top: 3rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid #ddd;
+    color: #aaa;
+    font-size: 0.78rem;
+    letter-spacing: 0.04em;
+  }
+
+  @media (max-width: 520px) {
+    .page { padding: 1.25rem 1rem 3rem; }
+    h1 { font-size: 1.7rem; }
+    .section-header { flex-direction: column; gap: 0.2rem; }
+    .vak-table { grid-template-columns: 1fr; }
+    .vak-cell { border-right: none; border-bottom: 1px solid #eee; }
+    .vak-cell:last-child { border-bottom: none; }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+  <header>
+    <p class="eyebrow">NLP Practitioner Field Guide</p>
+    <h1>Strategy Elicitation</h1>
+    <p class="subtitle">A beginner's step-by-step checklist for extracting how someone produces a specific result &mdash; so you can replicate or teach it.</p>
+  </header>
+
+  <div class="callout">
+    <strong>What is a strategy?</strong> The precise internal sequence (pictures, sounds, feelings, self-talk) a person runs to produce a specific outcome. Elicit it cleanly and you can model it, install it, or coach around a broken link in the chain.
+  </div>
+
+  <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+
+  <div class="section">
+    <div class="section-header">
+      <div class="section-header-left">
+        <span class="step-number">1</span>
+        <h2>Set the Context</h2>
+      </div>
+      <span class="section-hint">prime the unconscious</span>
+    </div>
+    <ul class="checklist">
+      <li data-id="1a" onclick="toggle(this)">
+        <div class="checkbox"><svg viewBox="0 0 14 14" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 7.5L5.5 10.5L11.5 3.5"/></svg></div>
+        <span class="check-label">Pick one specific, repeatable outcome (e.g. <em>"how you decide to buy a book,"</em> not <em>"how you make decisions"</em>)</span>
+      </li>
+      <li data-id="1b" onclick="toggle(this)">
+        <div class="checkbox"><svg viewBox="0 0 14 14" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 7.5L5.5 10.5L11.5 3.5"/></svg></div>
+        <span class="check-label">Ask them to recall a <em>specific past instance</em> when they did it well</span>
+      </li>
+      <li data-id="1c" onclick="toggle(this)">
+        <div class="checkbox"><svg viewBox="0 0 14 14" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 7.5L5.5 10.5L11.5 3.5"/></svg></div>
+        <span class="check-label">Have them close their eyes and step back into it fully &mdash; see, hear, feel what they did</span>
+      </li>
+    </ul>
+  </div>
+
+  <div class="section">
+    <div class="section-header">
+      <div class="section-header-left">
+        <span class="step-number">2</span>
+        <h2>Find the Trigger</h2>
+      </div>
+      <span class="section-hint">locate step one</span>
+    </div>
+    <ul class="checklist">
+      <li data-id="2a" onclick="toggle(this)">
+        <div class="checkbox"><svg viewBox="0 0 14 14" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 7.5L5.5 10.5L11.5 3.5"/></svg></div>
+        <span class="check-label">Ask: <span class="quote">"What was the very first thing that happened?"</span></span>
+      </li>
+      <li data-id="2b" onclick="toggle(this)">
+        <div class="checkbox"><svg viewBox="0 0 14 14" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 7.5L5.5 10.5L11.5 3.5"/></svg></div>
+        <span class="check-label">Listen for modality: did they <em>see</em> something, <em>hear</em> something, or <em>feel</em> something first?</span>
+      </li>
+      <li data-id="2c" onclick="toggle(this)">
+        <div class="checkbox"><svg viewBox="0 0 14 14" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 7.5L5.5 10.5L11.5 3.5"/></svg></div>
+        <span class="check-label">Note it using VAK shorthand (see below). This is your starting link.</span>
+      </li>
+    </ul>
+  </div>
+
+  <div class="section">
+    <div class="section-header">
+      <div class="section-header-left">
+        <span class="step-number">3</span>
+        <h2>Walk the Sequence</h2>
+      </div>
+      <span class="section-hint">capture the syntax</span>
+    </div>
+    <ul class="checklist">
+      <li data-id="3a" onclick="toggle(this)">
+        <div class="checkbox"><svg viewBox="0 0 14 14" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 7.5L5.5 10.5L11.5 3.5"/></svg></div>
+        <span class="check-label">Ask: <span class="quote">"Then what happened? And then what?"</span> &mdash; stay curious, stay quiet</span>
+      </li>
+      <li data-id="3b" onclick="toggle(this)">
+        <div class="checkbox"><svg viewBox="0 0 14 14" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 7.5L5.5 10.5L11.5 3.5"/></svg></div>
+        <span class="check-label">For each step, clarify: <em>internal or external? pictures, sounds, self-talk, or body sensation?</em></span>
+      </li>
+      <li data-id="3c" onclick="toggle(this)">
+        <div class="checkbox"><svg viewBox="0 0 14 14" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 7.5L5.5 10.5L11.5 3.5"/></svg></div>
+        <span class="check-label">Write the sequence in order using the notation below</span>
+      </li>
+    </ul>
+    <div class="vak-table">
+      <div class="vak-cell">
+        <h4>V &mdash; Visual</h4>
+        <p>Ve = external (seeing it)<br>Vi = internal (picturing it)</p>
+      </div>
+      <div class="vak-cell">
+        <h4>A &mdash; Auditory</h4>
+        <p>Ae = heard aloud<br>Ad = self-talk (digital)</p>
+      </div>
+      <div class="vak-cell">
+        <h4>K &mdash; Kinesthetic</h4>
+        <p>Ke = physical sensation<br>Ki = emotion / gut feel</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-header">
+      <div class="section-header-left">
+        <span class="step-number">4</span>
+        <h2>Find the Decision Point</h2>
+      </div>
+      <span class="section-hint">locate the test</span>
+    </div>
+    <ul class="checklist">
+      <li data-id="4a" onclick="toggle(this)">
+        <div class="checkbox"><svg viewBox="0 0 14 14" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 7.5L5.5 10.5L11.5 3.5"/></svg></div>
+        <span class="check-label">Ask: <span class="quote">"How did you know you were done? How did you know it was right?"</span></span>
+      </li>
+      <li data-id="4b" onclick="toggle(this)">
+        <div class="checkbox"><svg viewBox="0 0 14 14" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 7.5L5.5 10.5L11.5 3.5"/></svg></div>
+        <span class="check-label">This is the exit criterion &mdash; usually a feeling, a click, or an internal "yes"</span>
+      </li>
+      <li data-id="4c" onclick="toggle(this)">
+        <div class="checkbox"><svg viewBox="0 0 14 14" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 7.5L5.5 10.5L11.5 3.5"/></svg></div>
+        <span class="check-label">Note the submodalities: was it bright? loud? located somewhere in the body?</span>
+      </li>
+    </ul>
+  </div>
+
+  <div class="section">
+    <div class="section-header">
+      <div class="section-header-left">
+        <span class="step-number">5</span>
+        <h2>Test & Refine</h2>
+      </div>
+      <span class="section-hint">verify the model</span>
+    </div>
+    <ul class="checklist">
+      <li data-id="5a" onclick="toggle(this)">
+        <div class="checkbox"><svg viewBox="0 0 14 14" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 7.5L5.5 10.5L11.5 3.5"/></svg></div>
+        <span class="check-label">Play the sequence back to them out loud. Ask: <span class="quote">"Did I miss a step?"</span></span>
+      </li>
+      <li data-id="5b" onclick="toggle(this)">
+        <div class="checkbox"><svg viewBox="0 0 14 14" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 7.5L5.5 10.5L11.5 3.5"/></svg></div>
+        <span class="check-label">Have them run it on a <em>new</em> instance and confirm it produces the same result</span>
+      </li>
+      <li data-id="5c" onclick="toggle(this)">
+        <div class="checkbox"><svg viewBox="0 0 14 14" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 7.5L5.5 10.5L11.5 3.5"/></svg></div>
+        <span class="check-label">If the result breaks, a step is missing or out of order &mdash; re-elicit that link only</span>
+      </li>
+    </ul>
+  </div>
+
+  <button class="reset-btn" onclick="resetAll()">
+    <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M1.5 1.5v4h4"/><path d="M2.2 8.8a5 5 0 1 0 .9-5.1L1.5 5.5"/></svg>
+    Reset all
+  </button>
+
+  <footer>BEN &middot; FIELD GUIDE &nbsp;&mdash;&nbsp; One-page reference</footer>
+</div>
+
+<script>
+  const STORAGE_KEY = 'nlp-strategy-elicitation';
+
+  function getState() {
+    try { return JSON.parse(localStorage.getItem(STORAGE_KEY)) || {}; } catch { return {}; }
+  }
+
+  function saveState(state) {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+  }
+
+  function toggle(li) {
+    li.classList.toggle('checked');
+    const state = getState();
+    state[li.dataset.id] = li.classList.contains('checked');
+    saveState(state);
+    updateProgress();
+  }
+
+  function updateProgress() {
+    const items = document.querySelectorAll('.checklist li');
+    const checked = document.querySelectorAll('.checklist li.checked');
+    const pct = items.length ? (checked.length / items.length) * 100 : 0;
+    document.getElementById('progressFill').style.width = pct + '%';
+  }
+
+  function resetAll() {
+    document.querySelectorAll('.checklist li').forEach(li => li.classList.remove('checked'));
+    localStorage.removeItem(STORAGE_KEY);
+    updateProgress();
+  }
+
+  (function restore() {
+    const state = getState();
+    Object.keys(state).forEach(id => {
+      if (state[id]) {
+        const li = document.querySelector(`[data-id="${id}"]`);
+        if (li) li.classList.add('checked');
+      }
+    });
+    updateProgress();
+  })();
+</script>
+</body>
+</html>
