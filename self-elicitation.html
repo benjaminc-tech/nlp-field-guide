@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>NLP Strategy Elicitation — Field Guide</title>
+<title>Eliciting Your Own Strategies — NLP Field Guide</title>
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -21,9 +21,7 @@
     padding: 2rem 1.5rem 4rem;
   }
 
-  header {
-    margin-bottom: 2.5rem;
-  }
+  header { margin-bottom: 2.5rem; }
 
   .eyebrow {
     font-size: 0.7rem;
@@ -61,6 +59,34 @@
 
   .callout strong { color: #111; }
 
+  .callout .prereqs {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.3rem 1.5rem;
+    margin-top: 0.75rem;
+    font-size: 0.88rem;
+  }
+
+  .callout .prereqs span::before {
+    content: "\25B8 ";
+    color: #999;
+  }
+
+  .trap {
+    background: #fffbf0;
+    border-left: 4px solid #e0a030;
+    border-radius: 6px;
+    padding: 0.85rem 1.1rem;
+    margin: 0.6rem 0 0.25rem;
+    font-size: 0.88rem;
+    color: #555;
+  }
+
+  .trap strong {
+    color: #b8860b;
+    font-weight: 700;
+  }
+
   .progress-bar {
     background: #e0e0d8;
     border-radius: 100px;
@@ -81,9 +107,7 @@
     transition: width 0.4s ease;
   }
 
-  .section {
-    margin-bottom: 2rem;
-  }
+  .section { margin-bottom: 2rem; }
 
   .section-header {
     display: flex;
@@ -199,10 +223,7 @@
     transition: color 0.2s;
   }
 
-  .check-label em {
-    font-style: italic;
-    color: #555;
-  }
+  .check-label em { font-style: italic; color: #555; }
 
   .check-label .quote {
     font-weight: 600;
@@ -240,26 +261,6 @@
     line-height: 1.5;
   }
 
-  .reset-btn {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.4rem;
-    margin-top: 1.5rem;
-    padding: 0.6rem 1.2rem;
-    background: none;
-    border: 1.5px solid #ccc;
-    border-radius: 8px;
-    color: #888;
-    font-size: 0.82rem;
-    cursor: pointer;
-    transition: all 0.2s;
-  }
-
-  .reset-btn:hover {
-    border-color: #c0392b;
-    color: #c0392b;
-  }
-
   .nav-link {
     display: inline-flex;
     align-items: center;
@@ -282,6 +283,26 @@
     color: #2d6a4f;
   }
 
+  .reset-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    margin-top: 1.5rem;
+    padding: 0.6rem 1.2rem;
+    background: none;
+    border: 1.5px solid #ccc;
+    border-radius: 8px;
+    color: #888;
+    font-size: 0.82rem;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+
+  .reset-btn:hover {
+    border-color: #c0392b;
+    color: #c0392b;
+  }
+
   footer {
     text-align: center;
     margin-top: 3rem;
@@ -299,91 +320,108 @@
     .vak-table { grid-template-columns: 1fr; }
     .vak-cell { border-right: none; border-bottom: 1px solid #eee; }
     .vak-cell:last-child { border-bottom: none; }
+    .callout .prereqs { grid-template-columns: 1fr; }
   }
 </style>
 </head>
 <body>
 <div class="page">
   <header>
-    <p class="eyebrow">NLP Practitioner Field Guide</p>
-    <h1>Strategy Elicitation</h1>
-    <p class="subtitle">A beginner's step-by-step checklist for extracting how someone produces a specific result &mdash; so you can replicate or teach it.</p>
+    <p class="eyebrow">NLP Practitioner Field Guide &middot; Self-Modeling Edition</p>
+    <h1>Eliciting Your Own Strategies</h1>
+    <p class="subtitle">A step-by-step protocol for extracting the exact sequence behind a past success &mdash; so you can run it on demand.</p>
   </header>
 
   <div class="callout">
-    <strong>What is a strategy?</strong> The precise internal sequence (pictures, sounds, feelings, self-talk) a person runs to produce a specific outcome. Elicit it cleanly and you can model it, install it, or coach around a broken link in the chain.
+    <strong>Before you start &mdash; set up the conditions.</strong> Self-elicitation fails when you stay in analytical mode. Engineer the environment first.
+    <div class="prereqs">
+      <span>Voice memo open, ready to record</span>
+      <span>Eyes closed, speaking out loud</span>
+      <span>Pick <em>one</em> specific past instance</span>
+      <span>Plan to do the full protocol 3&times; (three instances)</span>
+    </div>
   </div>
 
   <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
 
+  <!-- Section 1 -->
   <div class="section">
     <div class="section-header">
       <div class="section-header-left">
         <span class="step-number">1</span>
-        <h2>Set the Context</h2>
+        <h2>Anchor a Specific Instance</h2>
       </div>
-      <span class="section-hint">prime the unconscious</span>
+      <span class="section-hint">bypass the sanitized version</span>
     </div>
     <ul class="checklist">
       <li data-id="1a" onclick="toggle(this)">
         <div class="checkbox"><svg viewBox="0 0 14 14" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 7.5L5.5 10.5L11.5 3.5"/></svg></div>
-        <span class="check-label">Pick one specific, repeatable outcome (e.g. <em>"how you decide to buy a book,"</em> not <em>"how you make decisions"</em>)</span>
+        <span class="check-label">Pick <em>one</em> outcome you've produced well more than once (e.g. "the morning I wrote the Drift Method PDF in one sitting")</span>
       </li>
       <li data-id="1b" onclick="toggle(this)">
         <div class="checkbox"><svg viewBox="0 0 14 14" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 7.5L5.5 10.5L11.5 3.5"/></svg></div>
-        <span class="check-label">Ask them to recall a <em>specific past instance</em> when they did it well</span>
+        <span class="check-label">Name the date, place, and what you were wearing &mdash; these are re-entry hooks</span>
       </li>
       <li data-id="1c" onclick="toggle(this)">
         <div class="checkbox"><svg viewBox="0 0 14 14" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 7.5L5.5 10.5L11.5 3.5"/></svg></div>
-        <span class="check-label">Have them close their eyes and step back into it fully &mdash; see, hear, feel what they did</span>
+        <span class="check-label">Close your eyes. Step back in. See what you saw, hear what you heard, feel what you felt</span>
       </li>
     </ul>
+    <div class="trap">
+      <strong>Trap:</strong> "I usually do X" is your conscious mind summarizing. You want the <em>actual</em> instance, present tense, first person.
+    </div>
   </div>
 
+  <!-- Section 2 -->
   <div class="section">
     <div class="section-header">
       <div class="section-header-left">
         <span class="step-number">2</span>
-        <h2>Find the Trigger</h2>
+        <h2>Narrate Out Loud &mdash; Don't Write Yet</h2>
       </div>
-      <span class="section-hint">locate step one</span>
+      <span class="section-hint">bypass compression</span>
     </div>
     <ul class="checklist">
       <li data-id="2a" onclick="toggle(this)">
         <div class="checkbox"><svg viewBox="0 0 14 14" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 7.5L5.5 10.5L11.5 3.5"/></svg></div>
-        <span class="check-label">Ask: <span class="quote">"What was the very first thing that happened?"</span></span>
+        <span class="check-label">Start recording. Narrate as if describing it to someone who wasn't there</span>
       </li>
       <li data-id="2b" onclick="toggle(this)">
         <div class="checkbox"><svg viewBox="0 0 14 14" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 7.5L5.5 10.5L11.5 3.5"/></svg></div>
-        <span class="check-label">Listen for modality: did they <em>see</em> something, <em>hear</em> something, or <em>feel</em> something first?</span>
+        <span class="check-label">Use present tense: <span class="quote">"I'm sitting at the desk. I open the laptop. I see..."</span></span>
       </li>
       <li data-id="2c" onclick="toggle(this)">
         <div class="checkbox"><svg viewBox="0 0 14 14" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 7.5L5.5 10.5L11.5 3.5"/></svg></div>
-        <span class="check-label">Note it using VAK shorthand (see below). This is your starting link.</span>
+        <span class="check-label">Include the mundane &mdash; what you did with your hands, what you looked at first, what you said under your breath</span>
+      </li>
+      <li data-id="2d" onclick="toggle(this)">
+        <div class="checkbox"><svg viewBox="0 0 14 14" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 7.5L5.5 10.5L11.5 3.5"/></svg></div>
+        <span class="check-label">Resist editing. If you catch yourself explaining <em>why</em>, stop and return to what you <em>did</em></span>
       </li>
     </ul>
   </div>
 
+  <!-- Section 3 -->
   <div class="section">
     <div class="section-header">
       <div class="section-header-left">
         <span class="step-number">3</span>
-        <h2>Walk the Sequence</h2>
+        <h2>Transcribe & Map the Syntax</h2>
       </div>
-      <span class="section-hint">capture the syntax</span>
+      <span class="section-hint">see the structure</span>
     </div>
     <ul class="checklist">
       <li data-id="3a" onclick="toggle(this)">
         <div class="checkbox"><svg viewBox="0 0 14 14" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 7.5L5.5 10.5L11.5 3.5"/></svg></div>
-        <span class="check-label">Ask: <span class="quote">"Then what happened? And then what?"</span> &mdash; stay curious, stay quiet</span>
+        <span class="check-label">Transcribe the recording (or have Claude do it). Now you can see it from outside</span>
       </li>
       <li data-id="3b" onclick="toggle(this)">
         <div class="checkbox"><svg viewBox="0 0 14 14" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 7.5L5.5 10.5L11.5 3.5"/></svg></div>
-        <span class="check-label">For each step, clarify: <em>internal or external? pictures, sounds, self-talk, or body sensation?</em></span>
+        <span class="check-label">Next to each step, tag the modality using the notation below</span>
       </li>
       <li data-id="3c" onclick="toggle(this)">
         <div class="checkbox"><svg viewBox="0 0 14 14" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 7.5L5.5 10.5L11.5 3.5"/></svg></div>
-        <span class="check-label">Write the sequence in order using the notation below</span>
+        <span class="check-label">Look for the actual starting trigger &mdash; often earlier than you think</span>
       </li>
     </ul>
     <div class="vak-table">
@@ -402,65 +440,75 @@
     </div>
   </div>
 
+  <!-- Section 4 -->
   <div class="section">
     <div class="section-header">
       <div class="section-header-left">
         <span class="step-number">4</span>
-        <h2>Find the Decision Point</h2>
+        <h2>Interrogate the Obvious</h2>
       </div>
-      <span class="section-hint">locate the test</span>
+      <span class="section-hint">find the missing links</span>
     </div>
     <ul class="checklist">
       <li data-id="4a" onclick="toggle(this)">
         <div class="checkbox"><svg viewBox="0 0 14 14" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 7.5L5.5 10.5L11.5 3.5"/></svg></div>
-        <span class="check-label">Ask: <span class="quote">"How did you know you were done? How did you know it was right?"</span></span>
+        <span class="check-label">For each step, ask: <span class="quote">"What happened <em>just before</em> this that I skipped?"</span></span>
       </li>
       <li data-id="4b" onclick="toggle(this)">
         <div class="checkbox"><svg viewBox="0 0 14 14" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 7.5L5.5 10.5L11.5 3.5"/></svg></div>
-        <span class="check-label">This is the exit criterion &mdash; usually a feeling, a click, or an internal "yes"</span>
+        <span class="check-label">Ask: <span class="quote">"How did I know to do this step and not something else?"</span></span>
       </li>
       <li data-id="4c" onclick="toggle(this)">
         <div class="checkbox"><svg viewBox="0 0 14 14" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 7.5L5.5 10.5L11.5 3.5"/></svg></div>
-        <span class="check-label">Note the submodalities: was it bright? loud? located somewhere in the body?</span>
+        <span class="check-label">Identify the exit criterion: <span class="quote">"How did I know I was done?"</span> (this is usually a Ki)</span>
+      </li>
+      <li data-id="4d" onclick="toggle(this)">
+        <div class="checkbox"><svg viewBox="0 0 14 14" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 7.5L5.5 10.5L11.5 3.5"/></svg></div>
+        <span class="check-label">Use a second Claude session as your elicitor &mdash; paste your transcript, let it ask questions</span>
       </li>
     </ul>
   </div>
 
+  <!-- Section 5 -->
   <div class="section">
     <div class="section-header">
       <div class="section-header-left">
         <span class="step-number">5</span>
-        <h2>Test & Refine</h2>
+        <h2>Triangulate & Test</h2>
       </div>
-      <span class="section-hint">verify the model</span>
+      <span class="section-hint">pattern vs. story</span>
     </div>
     <ul class="checklist">
       <li data-id="5a" onclick="toggle(this)">
         <div class="checkbox"><svg viewBox="0 0 14 14" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 7.5L5.5 10.5L11.5 3.5"/></svg></div>
-        <span class="check-label">Play the sequence back to them out loud. Ask: <span class="quote">"Did I miss a step?"</span></span>
+        <span class="check-label">Repeat steps 1&ndash;4 on <em>two more</em> instances of the same outcome</span>
       </li>
       <li data-id="5b" onclick="toggle(this)">
         <div class="checkbox"><svg viewBox="0 0 14 14" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 7.5L5.5 10.5L11.5 3.5"/></svg></div>
-        <span class="check-label">Have them run it on a <em>new</em> instance and confirm it produces the same result</span>
+        <span class="check-label">Compare all three. The common sequence is your strategy &mdash; the differences are noise</span>
       </li>
       <li data-id="5c" onclick="toggle(this)">
         <div class="checkbox"><svg viewBox="0 0 14 14" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 7.5L5.5 10.5L11.5 3.5"/></svg></div>
-        <span class="check-label">If the result breaks, a step is missing or out of order &mdash; re-elicit that link only</span>
+        <span class="check-label">Write the distilled strategy as a short protocol: trigger &rarr; steps &rarr; exit</span>
+      </li>
+      <li data-id="5d" onclick="toggle(this)">
+        <div class="checkbox"><svg viewBox="0 0 14 14" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 7.5L5.5 10.5L11.5 3.5"/></svg></div>
+        <span class="check-label">Run it deliberately on a new instance. If the outcome holds, it's modeled. If not, a link is missing or out of order</span>
       </li>
     </ul>
   </div>
 
-  <a class="nav-link" href="self-elicitation.html">Self-Elicitation (Guide 02) &rarr;</a>
+  <a class="nav-link" href="index.html">&larr; Strategy Elicitation (Guide 01)</a>
   <button class="reset-btn" onclick="resetAll()">
     <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M1.5 1.5v4h4"/><path d="M2.2 8.8a5 5 0 1 0 .9-5.1L1.5 5.5"/></svg>
     Reset all
   </button>
 
-  <footer>BEN &middot; FIELD GUIDE &nbsp;&mdash;&nbsp; One-page reference</footer>
+  <footer>BEN &middot; FIELD GUIDE &middot; 02 &nbsp;&mdash;&nbsp; One-page reference</footer>
 </div>
 
 <script>
-  const STORAGE_KEY = 'nlp-strategy-elicitation';
+  const STORAGE_KEY = 'nlp-self-elicitation';
 
   function getState() {
     try { return JSON.parse(localStorage.getItem(STORAGE_KEY)) || {}; } catch { return {}; }
